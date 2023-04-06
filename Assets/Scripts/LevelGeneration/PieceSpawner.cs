@@ -5,7 +5,7 @@ using UnityEngine;
 public class PieceSpawner : MonoBehaviour
 {
     public PieceType type;
-    public Piece currentPiece;
+    private Piece currentPiece;
 
     public void Spawn()
     {
