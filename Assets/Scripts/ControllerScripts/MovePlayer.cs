@@ -5,6 +5,8 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     private CharacterController playerController;
+    public GameManager GMScript;
+    Animator anim;
     private const float LANE_DISTANCE = 3.0f;
     public PlayerController swipeControls;
     public Transform player;
@@ -35,6 +37,7 @@ public class MovePlayer : MonoBehaviour
         speed = originalSpeed;
         jumpForce = 20f;
         playerController = GetComponent<CharacterController>();
+        anim = playerController.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -145,6 +148,8 @@ public class MovePlayer : MonoBehaviour
     private void Crash()
     {
         isAlive = false;
+        anim.SetTrigger("Dead");
+        GMScript.SetIsDead();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

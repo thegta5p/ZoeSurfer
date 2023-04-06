@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private MovePlayer movePlayer;
 
     public static GameManager Instance { set; get; }
+    public bool IsDead = false;
 
     private void Awake()
     {
@@ -30,17 +31,31 @@ public class GameManager : MonoBehaviour
         scoreText.text = scoreText.text = score.ToString("0");
 
     }
+    
+    public void SetIsDead()
+    {
+        IsDead = true;
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        score += (Time.deltaTime * modifiedScore);
-        if(lastScore != (int)score)
+        if (!IsDead)
         {
-            lastScore = (int)score;
-            scoreText.text = score.ToString("0");
+            score += (Time.deltaTime * modifiedScore);
+            if (lastScore != (int)score)
+            {
+                lastScore = (int)score;
+                scoreText.text = score.ToString("0");
+            }
+            Debug.Log("ALIVE");
         }
+        else
+        {
+            Debug.Log("DEAD");
+        }
+       
     }
 
     public void GetCoin()
