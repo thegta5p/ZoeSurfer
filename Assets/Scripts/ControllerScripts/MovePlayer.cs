@@ -141,5 +141,21 @@ public class MovePlayer : MonoBehaviour
     {
         return jumpForce;
     }
+
+    private void Crash()
+    {
+        isAlive = false;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        switch (hit.gameObject.tag)
+        {
+            case "Obstacle":
+                Crash();
+                break;
+        }
+    }
+
 }
 
