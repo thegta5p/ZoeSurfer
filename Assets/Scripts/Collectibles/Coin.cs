@@ -18,7 +18,6 @@ public class Coin : MonoBehaviour
         {
             GameManager.Instance.GetCoin();
             anim.SetTrigger("Collected");
-            Destroy(gameObject, 1.5f);
         }
     }
 }
