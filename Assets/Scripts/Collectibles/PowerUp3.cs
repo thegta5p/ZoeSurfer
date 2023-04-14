@@ -4,34 +4,35 @@ using UnityEngine;
 
 public class PowerUp3 : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     private float xAxis;
     private float yAxis;
     private float zAxis;
     private Animator anim;
     // Start is called before the first frame update
-    void Start()
+
+
+    private void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim= GetComponent<Animator>();
+        player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        anim.SetTrigger("Spawn");
     }
 
     IEnumerator MakePlayerTiny()
     {
-        xAxis = 0.5f;
-        yAxis = 0.5f;
-        zAxis = 0.5f;
+        xAxis = 0.25f;
+        yAxis = 0.25f;
+        zAxis = 0.25f;
 
         player.transform.localScale = new Vector3(xAxis, yAxis, zAxis);
         yield return new WaitForSeconds(10);
 
         player.transform.localScale = new Vector3(1, 1, 1);
-        Destroy(gameObject, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)

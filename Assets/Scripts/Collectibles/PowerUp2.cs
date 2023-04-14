@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class PowerUp2 : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     private float xAxis;
     private float yAxis;
     private float zAxis;
     private Animator anim;
     private bool isActive = false;
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         anim = GetComponent<Animator>();
+        player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        anim.SetTrigger("Spawn");
     }
 
     IEnumerator MakePlayerBig()
@@ -30,7 +31,6 @@ public class PowerUp2 : MonoBehaviour
         player.transform.localScale = new Vector3(xAxis, yAxis, zAxis);
         yield return new WaitForSeconds(10);
         player.transform.localScale = new Vector3(1, 1, 1);
-        Destroy(gameObject, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)

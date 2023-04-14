@@ -8,9 +8,15 @@ public class PowerUp1 : MonoBehaviour
     private float tempForce;
     private float newForce;
     private Animator anim;
-    void Start()
+
+    private void Awake()
     {
         anim = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        anim.SetTrigger("Spawn");
     }
 
     IEnumerator Effect()
@@ -20,7 +26,6 @@ public class PowerUp1 : MonoBehaviour
         MovePlayer.Instance.SetJumpForce(newForce);
         yield return new WaitForSeconds(5f);
         MovePlayer.Instance.SetJumpForce(newForce - 10f);
-        Destroy(gameObject, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)

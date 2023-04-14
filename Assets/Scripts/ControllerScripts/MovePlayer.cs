@@ -44,12 +44,12 @@ public class MovePlayer : MonoBehaviour
     void Update()
     {
 
-        if(!isAlive)
+        if (!isAlive)
         {
             return;
         }
 
-        if(Time.time - speedTick > speedIncreaseTime)
+        if (Time.time - speedTick > speedIncreaseTime)
         {
             speedTick = Time.time;
             speed += speedIncreaseRate;
@@ -60,9 +60,9 @@ public class MovePlayer : MonoBehaviour
 
         if (swipeControls.SwipeLeft)
         {
-            
+
             MoveLane(false);
-     
+
         }
         if (swipeControls.SwipeRight)
         {
@@ -85,7 +85,7 @@ public class MovePlayer : MonoBehaviour
         }
 
 
-   //     player.transform.position = Vector3.MoveTowards(player.transform.position, newPosition, speed * Time.deltaTime);
+        //     player.transform.position = Vector3.MoveTowards(player.transform.position, newPosition, speed * Time.deltaTime);
 
         if (swipeControls.Tap)
         {
@@ -114,7 +114,7 @@ public class MovePlayer : MonoBehaviour
 
         //moveplayer
         playerController.Move(moveVector * Time.deltaTime);
-        
+
 
     }
 
@@ -128,10 +128,10 @@ public class MovePlayer : MonoBehaviour
 
     private bool isGrounded()
     {
-        Ray groundRay = new Ray( new Vector3(playerController.bounds.center.x, (playerController.bounds.center.y - playerController.bounds.extents.y) + 0.2f, playerController.bounds.center.z), Vector3.down);
+        Ray groundRay = new Ray(new Vector3(playerController.bounds.center.x, (playerController.bounds.center.y - playerController.bounds.extents.y) + 0.2f, playerController.bounds.center.z), Vector3.down);
         Debug.DrawRay(groundRay.origin, groundRay.direction, Color.cyan, 1.0f);
         return Physics.Raycast(groundRay, 0.2f + 0.1f);
-      
+
     }
 
     public void SetJumpForce(float force)
@@ -145,10 +145,18 @@ public class MovePlayer : MonoBehaviour
         return jumpForce;
     }
 
+    IEnumerator DeathAnim()
+    {
+        anim.SetTrigger("Dead");
+        yield return new WaitForSeconds(5f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("DeathScreen");
+    }
+
     private void Crash()
     {
         isAlive = false;
-        anim.SetTrigger("Dead");
+        StartCoroutine(DeathAnim());
+        Debug.Log("Death1");
         GMScript.SetIsDead();
     }
 
