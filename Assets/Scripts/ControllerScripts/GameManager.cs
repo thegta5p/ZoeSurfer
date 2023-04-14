@@ -8,15 +8,16 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private const int COIN_VAL = 5;
+    private const float COIN_VAL = 5;
     public Text scoreText;
     public Text coinScore;
     public Text speedModifier;
     private float modifiedScore;
     private float score;
     private int lastScore;
-    private float coinCnt;
+    private int coinCnt;
     private MovePlayer movePlayer;
+
 
     public static GameManager Instance { set; get; }
     public bool IsDead = false;
@@ -44,17 +45,16 @@ public class GameManager : MonoBehaviour
         if (!IsDead)
         {
             score += (Time.deltaTime * modifiedScore);
+            Debug.Log(lastScore);
             if (lastScore != (int)score)
             {
                 lastScore = (int)score;
                 scoreText.text = score.ToString("0");
+                PlayerPrefs.SetInt("Score", lastScore);
             }
-            Debug.Log("ALIVE");
+           // Debug.Log("ALIVE");
         }
-        else
-        {
-            Debug.Log("DEAD");
-        }
+       
        
     }
 
@@ -62,8 +62,7 @@ public class GameManager : MonoBehaviour
     {
         coinCnt++;
         coinScore.text = coinCnt.ToString("0");
-        score += COIN_VAL;
-        scoreText.text = scoreText.text = score.ToString("0");
+        PlayerPrefs.SetInt("Coins", coinCnt);
 
     }
 
@@ -73,6 +72,17 @@ public class GameManager : MonoBehaviour
         Debug.Log(modifiedScore);
         modifiedScore = 1.0f + modifierAmount;
         speedModifier.text = modifiedScore.ToString("0.0");
+    }
+
+    public int GetCoinCount() 
+    {
+        return coinCnt;
+    }
+
+    public int GetScore()
+    {
+        Debug.Log(score);
+        return lastScore;
     }
 
 
