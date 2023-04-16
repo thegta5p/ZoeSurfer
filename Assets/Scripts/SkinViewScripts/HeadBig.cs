@@ -16,6 +16,25 @@ public class HeadBig : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        if(PlayerPrefs.GetInt("BigHead") == 1)
+        {
+            anim.SetBool("IsBigHead", true);
+        }
+        else
+        {
+            anim.SetBool("IsBigHead", false);
+        }
+    }
+
+    public void ShrinkHead()
+    {
+        anim.SetTrigger("ShrinkHead");
+        anim.SetBool("IsBigHead", false);
+        PlayerPrefs.SetInt("BigHead", 0);
+    }
+
 
     public void EnlargeHead()
     {

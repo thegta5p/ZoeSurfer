@@ -29,7 +29,9 @@ public class MovePlayer : MonoBehaviour
 
     private void Awake()
     {
+
         Instance = this;
+       
     }
 
     void Start()
@@ -38,6 +40,14 @@ public class MovePlayer : MonoBehaviour
         jumpForce = 20f;
         playerController = GetComponent<CharacterController>();
         anim = playerController.GetComponent<Animator>();
+        if (PlayerPrefs.GetInt("BigHead") == 1)
+        {
+            anim.SetBool("IsBigHead", true);
+        }
+        else
+        {
+            anim.SetBool("IsBigHead", false);
+        }
     }
 
     // Update is called once per frame
@@ -46,6 +56,7 @@ public class MovePlayer : MonoBehaviour
 
         if (!isAlive)
         {
+            Debug.Log("DEAD");
             return;
         }
 
