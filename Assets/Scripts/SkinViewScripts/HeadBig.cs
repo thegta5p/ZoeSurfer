@@ -30,6 +30,8 @@ public class HeadBig : MonoBehaviour
 
     public void ShrinkHead()
     {
+        anim.SetInteger("AnimationNumber", 0);
+        currAnimations = 0;
         anim.SetTrigger("ShrinkHead");
         anim.SetBool("IsBigHead", false);
         PlayerPrefs.SetInt("BigHead", 0);
@@ -38,11 +40,13 @@ public class HeadBig : MonoBehaviour
 
     public void EnlargeHead()
     {
+        currAnimations = 0;
+        anim.SetInteger("AnimationNumber", 0);
         anim.SetTrigger("MakeHeadBig");
         PlayerPrefs.SetInt("BigHead", 1);
     }
 
-    public void NextSkin()
+    public void NextAnimation()
     {
         currAnimations++;
         if (currAnimations > numOfAnimations-1) {
@@ -69,6 +73,26 @@ public class HeadBig : MonoBehaviour
                 else
                 {
                     anim.SetInteger("AnimationNumber", 1);
+                }
+                break;
+            case 2:
+                if(PlayerPrefs.GetInt("BigHead") == 0)
+                {
+                    anim.SetInteger("AnimationNumber", 2);
+                }
+                else
+                {
+                    anim.SetInteger("AnimationNumber", 2);
+                }
+                break;
+            case 3:
+                if(PlayerPrefs.GetInt("BigHead") == 0)
+                {
+                    anim.SetInteger("AnimationNumber", 3);
+                }
+                else
+                {
+                    anim.SetInteger("AnimationNumber", 3);
                 }
                 break;
         }
