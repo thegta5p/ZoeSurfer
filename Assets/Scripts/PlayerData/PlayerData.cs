@@ -19,8 +19,4 @@ public class PlayerData : MonoBehaviour
         
     }
 
-    public void SetPlayerScore(int newScore)
-    {
-        playerScore= newScore;
-    }
  }

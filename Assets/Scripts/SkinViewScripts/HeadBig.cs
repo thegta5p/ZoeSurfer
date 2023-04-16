@@ -1,31 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class HeadBig : MonoBehaviour
 {
-    private float xAxis;
-    private float yAxis;
-    private float zAxis;
-    public GameObject player;
-  
-    public void MakeHeadBig()
+    private Animator anim;
+
+    public int numOfAnimations = 2;
+    private int currAnimations = 0;
+
+    private void Awake()
     {
-        Debug.Log("Start");
-        xAxis += 1;
-        yAxis += 1;
-        zAxis += 1;
-        player.transform.localScale = new Vector3(xAxis, yAxis, zAxis);
-        Debug.Log(player.transform.localScale.x);
-        //InvokeRepeating("EnlargeHead", 2f, 3f);
+        anim = GetComponent<Animator>();
     }
 
-    private void EnlargeHead()
+
+    public void EnlargeHead()
     {
-        xAxis += 100;
-        yAxis += 100;
-        zAxis += 100;
-        Debug.Log("zoe");
-        player.transform.localScale = new Vector3(xAxis, yAxis, zAxis);
+        anim.SetTrigger("MakeHeadBig");
+        PlayerPrefs.SetInt("BigHead", 1);
+    }
+
+    public void NextSkin()
+    {
+        currAnimations++;
+        if (currAnimations > numOfAnimations-1) {
+            currAnimations = 0;
+        }
+
+        switch (currAnimations)
+        {
+            case 0: 
+                if(PlayerPrefs.GetInt("BigHead") == 0)
+                {
+                    anim.SetInteger("AnimationNumber", 0);
+                }
+                else
+                {
+                    anim.SetInteger("AnimationNumber", 0);
+                }
+                break;
+            case 1: 
+                if(PlayerPrefs.GetInt("BigHead") == 0)
+                {
+                    anim.SetInteger("AnimationNumber", 1);
+                }
+                else
+                {
+                    anim.SetInteger("AnimationNumber", 1);
+                }
+                break;
+        }
     }
 }

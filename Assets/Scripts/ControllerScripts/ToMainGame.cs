@@ -10,4 +10,10 @@ public class ToMainGame : MonoBehaviour
     {
         SceneManager.LoadScene("MainGame");
     }
+
+
+    public void SkinViewerScene()
+    {
+        SceneManager.LoadScene("SkinViewer");
+    }
 }
